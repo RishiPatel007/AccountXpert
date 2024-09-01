@@ -1,0 +1,139 @@
+.clients-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: #eef2f7;
+  }
+  
+  .clients-container .form-container {
+    flex: 6;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+  }
+  
+  .clients-container .clients-list {
+    flex: 4;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: calc(100vh - 128px);
+  }
+  
+  .clients-container h2 {
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 15px;
+    border-bottom: 2px solid rgb(255, 87, 34);;
+    padding-bottom: 10px;
+  }
+  
+  .clients-container .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .clients-container .form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .clients-container .form-group input,
+  .clients-container .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #444;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+  }
+  
+  .clients-container .form-group input:focus,
+  .clients-container .form-group textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    background-color: #fff;
+  }
+  
+  .clients-container .form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  .clients-container .clients-list li {
+    background-color: #fafafa;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  .clients-container .clients-list li:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+  }
+  .clients-container .clients-list ul{
+    padding: 0;
+  }
+  
+  .clients-container .clients-list .client-info {
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+  
+  .clients-container .clients-list .client-info h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #333;
+  }
+  
+  .clients-container .clients-list .client-info p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .clients-container .clients-list .btn-delete {
+    font-size: 1.25rem;
+    color: #ff4d4f;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-weight: bolder;
+  }
+  
+  .clients-container .clients-list .btn-delete:hover {
+    color: #ff0000;
+  }
+  
+  .clients-container .btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .clients-container .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  

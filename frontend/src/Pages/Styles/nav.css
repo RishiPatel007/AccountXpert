@@ -1,0 +1,96 @@
+nav {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav .navbar-brand img {
+    width: 120px;
+    margin-bottom: -5px;
+}
+
+.loginButton button,
+.signUpButton button,
+.logOutButton button {
+    background-color: rgb(255, 87, 34);
+    color: #fff;
+    width: 100px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.loginButton button:hover,
+.signUpButton button:hover,
+.logOutButton button:hover {
+    background-color: rgb(255, 149, 0);
+    color: white;
+}
+
+.logOutButton button {
+    margin-left: 30px;
+}
+
+.navbarButtons,
+.loggedInDetails {
+    display: flex;
+    align-items: center;
+}
+
+.welcomeUser {
+    margin-top: 5px;
+    font-size: larger;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.navbar-collapse {
+    justify-content: space-between;
+}
+
+.navbar-collapse ul li a{
+    margin-top: 0px;
+}
+.navbar-collapse ul li a{
+    justify-content: center;
+}
+
+.nav-item .nav-link {
+    font-size: 20px;
+    font-weight: bold;
+    color: #555;
+    transition: color 0.3s ease;
+    display: flex;
+    height: 100%; 
+    align-items: center;
+}
+
+.nav-item .nav-link:hover {
+    color: rgb(255, 87, 34);
+}
+
+.navbar-toggler {
+    border: none;
+    outline: none;
+}
+
+.navbar-toggler-icon {
+    filter: brightness(0.5);
+}
+
+.dropdown-menu {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 992px) {
+    .loginButton {
+        margin-right: 10px;
+    }
+
+    .navbarButtons,
+    .loggedInDetails {
+        justify-content: center;
+    }
+
+    .navbar-brand img {
+        width: 100px;
+    }
+}

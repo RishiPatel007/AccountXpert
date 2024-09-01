@@ -1,0 +1,33 @@
+:root {
+    --main_color : rgb(255, 87, 34);
+}
+
+.cardx{
+    padding: 40px;
+    background-color :none;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: space-between;
+}
+
+
+.cardHeading{
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.cardBody{
+    text-align: center;
+    font-size: 19px;
+}
+
+.cardx button{
+    margin-top: 50px;
+    background-color: var(--main_color);
+    height: 60px;
+    max-width: 250px;
+    align-self: center;
+    font-size: large;
+}

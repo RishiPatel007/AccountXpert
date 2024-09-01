@@ -1,0 +1,169 @@
+.createButton button{
+    background-color: rgb(255, 87, 34);
+    font-size: larger;
+    font-weight: 500;
+    color: white;
+}
+
+.createButton button:hover{
+    color: black;
+}
+
+.heading{
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (max-width: 400px) {
+
+    .heading{
+        display: block;
+    }
+}
+
+
+
+.table-responsive {
+    overflow-x: auto;
+  }
+ 
+  .table .btn {
+    min-width: 90px;
+  }
+  
+  @media (max-width: 576px) {
+    .heading {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .createButton {
+      margin-top: 10px;
+    }
+  
+    .table .btn {
+      width: 100%;
+      margin-bottom: 5px;
+    }
+  
+    .table th, .table td {
+      white-space: nowrap;
+    }
+  }
+.orangeButton button{
+  background-color: rgb(255, 123, 0);
+  color: white;
+}
+.orangeButton button:hover{
+  color: black;
+}
+
+
+.table th, .table td {
+    vertical-align: middle;
+  }
+  
+  @media (max-width: 767.98px) {
+    .invoiceTable thead th:nth-child(3),
+    .invoiceTable thead th:nth-child(4),
+    .invoiceTable tbody td:nth-child(3),
+    .invoiceTable tbody td:nth-child(4) {
+      display: none;
+    }
+  }
+  
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.year-header {
+  min-width: 1200px;
+  font-size: large;
+  font-weight:800;
+  height: 60px;
+  background-color: #007bffe6; 
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.year-header:hover {
+  background-color: #007bff;
+}
+
+.month-header {
+  background-color: #6c757d;
+  font-size: large;
+  font-weight:800;
+  height: 60px;
+  color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  margin: 5px 0 5px 20px; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.month-header:hover {
+  background-color: #6c757d; 
+}
+
+/* .year-header.active {
+  background-color: #0056b3; 
+}
+
+.month-header.active {
+  background-color: #5a6268; 
+} */
+
+.invoiceTable {
+  margin-top: 10px;
+}
+
+.invoiceTable th, .invoiceTable td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.orangeButton .btn {
+  background-color: #f8a127;
+  color: #fff;
+}
+
+.orangeButton .btn:hover {
+  background-color: #c97e21;
+}
+@media (max-width: 1200px) {
+  .year-header,.month-header{
+    min-width: 1000px;
+  }
+}
+@media (max-width: 1000px) {
+  .year-header,.month-header{
+    min-width: 800px;
+  }
+}
+@media (max-width: 800px) {
+  .year-header,.month-header{
+    min-width: 600px;
+  }
+}
+@media (max-width: 600px) {
+  .year-header,.month-header{
+    min-width: 400px;
+  }
+}
+@media (max-width: 400px) {
+  .year-header,.month-header{
+    min-width: 200px;
+  }
+}
+
+.invoiceText{
+  font-weight: 600;
+  font-size: 2rem;
+}

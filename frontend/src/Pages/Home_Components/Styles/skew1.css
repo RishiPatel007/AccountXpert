@@ -1,0 +1,26 @@
+.trapezium-section {
+    margin-top: 200px;
+    position: relative;
+    width: 100%;
+    clip-path: polygon(0% 7%, 100% 0, 100% 100%, 0% 93%);
+    padding: 50px 0; 
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.main {
+    max-height: 75%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 70px;
+}
+
+.title{
+    font-size: 44px;
+    font-weight: 700;
+}
+
+.row{
+    padding: 20px;
+}

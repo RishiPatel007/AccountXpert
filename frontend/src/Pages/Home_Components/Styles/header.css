@@ -1,0 +1,48 @@
+:root {
+    --main_color : rgb(255, 87, 34);
+}
+
+
+.mainHeader{
+    padding-inline: 50px;
+    max-width: 100%;
+}
+
+.heading1{
+    font-size: 45px;
+    font-weight: 600;
+    margin-bottom: 60px;
+    color: rgb(51, 51, 51);
+}
+
+.heading2 div{
+    margin-bottom: 40px;
+    font-size: 22px;
+    color: rgb(92, 92, 92);
+}
+
+img{
+    height: 100%;
+    width: 100%;
+}
+
+.invoiceButton button{
+    background-color: var(--main_color);
+    height: 60px;
+    font-size: larger;
+    padding-left: 30px;
+}
+
+.invoiceButton button .plusSign{
+    margin-left: 15px;
+    padding-bottom: 5px;
+}
+@media (max-width: 992px) { 
+    .mainHeader{
+        text-align: center;
+    }
+}
+.Button:hover{
+    background-color: rgb(255, 136, 0) !important;
+    color: white !important;
+}

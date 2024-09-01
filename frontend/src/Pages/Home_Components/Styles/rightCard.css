@@ -1,0 +1,27 @@
+.mainCard{
+    margin-top: 200px !important;
+    margin-inline: 0px;
+    padding: 0px;
+    flex-wrap: nowrap;
+}
+.mainCard img{
+    margin: 0px;
+}
+.mainCard .text{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+    align-items: center;
+    font-size: 23px;
+    text-align: center;
+    padding-left: 30px;
+}
+
+.mainCard .headingText{
+    font-size: 35px;
+}
+@media (max-width: 992px) { 
+    .mainCard .text{
+        margin-bottom: 100px;
+    }
+}
