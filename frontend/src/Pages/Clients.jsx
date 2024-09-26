@@ -4,6 +4,7 @@ import { useLocation, Navigate } from "react-router-dom";
 import axios from "axios";
 import Footer from "./Footer";
 import "./Styles/Clients.css";
+import * as Yup from "yup";
 
 function Clients() {
   const [username, setUsername] = useState(null);
@@ -17,6 +18,26 @@ function Clients() {
     email: "",
     phone: "",
     _id: null,
+  });
+  const [errors, setErrors] = useState({});
+
+  const clientSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, "Client name is too short!")
+      .max(50, "Client name is too long!")
+      .required("Client name is required"),
+    address: Yup.string()
+      .min(10, "Address is too short!")
+      .max(100, "Address is too long!")
+      .required("Address is required"),
+    email: Yup.string()
+      .email("Invalid email format")
+      .required("Email is required"),
+    phone: Yup.string()
+      .matches(/^\d+$/, "Phone number must be digits only")
+      .min(10, "Phone number is too short!")
+      .max(15, "Phone number is too long!")
+      .required("Phone number is required"),
   });
 
   useEffect(() => {
@@ -54,6 +75,8 @@ function Clients() {
   const handleAddClient = async (e) => {
     e.preventDefault();
     try {
+      await clientSchema.validate(activeClient, { abortEarly: false });
+
       const newClient = { ...activeClient, username };
       const response = await axios.post(
         "http://localhost:8000/api/add-client/",
@@ -62,7 +85,6 @@ function Clients() {
 
       if (response.status === 201) {
         const newClientWithId = { ...newClient, _id: response.data._id };
-
         const updatedClients = [...clients, newClientWithId].sort((a, b) =>
           a.name.localeCompare(b.name)
         );
@@ -76,9 +98,18 @@ function Clients() {
           phone: "",
           _id: null,
         });
+        setErrors({}); // Clear errors
       }
     } catch (error) {
-      console.error("Error adding client:", error);
+      if (error.name === "ValidationError") {
+        const validationErrors = {};
+        error.inner.forEach((err) => {
+          validationErrors[err.path] = err.message;
+        });
+        setErrors(validationErrors);
+      } else {
+        console.error("Error adding client:", error);
+      }
     }
   };
 
@@ -86,6 +117,8 @@ function Clients() {
     e.preventDefault();
     if (activeClient._id) {
       try {
+        await clientSchema.validate(activeClient, { abortEarly: false });
+
         const updatedClient = { ...activeClient };
         const response = await axios.put(
           `http://localhost:8000/api/update-client/${activeClient._id}/`,
@@ -107,9 +140,18 @@ function Clients() {
             _id: null,
           });
           setAddbutton(true);
+          setErrors({}); // Clear errors
         }
       } catch (error) {
-        console.error("Error updating client:", error);
+        if (error.name === "ValidationError") {
+          const validationErrors = {};
+          error.inner.forEach((err) => {
+            validationErrors[err.path] = err.message;
+          });
+          setErrors(validationErrors);
+        } else {
+          console.error("Error updating client:", error);
+        }
       }
     }
   };
@@ -160,8 +202,9 @@ function Clients() {
                   setActiveClient({ ...activeClient, name: e.target.value })
                 }
                 placeholder="Enter client name"
-                required
+                className={errors.name ? "form-control is-invalid" : "form-control"}
               />
+              {errors.name && <div className="text-danger">{errors.name}</div>}
             </div>
 
             <div className="form-group">
@@ -176,8 +219,9 @@ function Clients() {
                   })
                 }
                 placeholder="Enter address"
-                required
+                className={errors.address ? "form-control is-invalid" : "form-control"}
               />
+              {errors.address && <div className="text-danger">{errors.address}</div>}
             </div>
 
             <div className="form-group">
@@ -190,8 +234,9 @@ function Clients() {
                   setActiveClient({ ...activeClient, email: e.target.value })
                 }
                 placeholder="Enter email"
-                required
+                className={errors.email ? "form-control is-invalid" : "form-control"}
               />
+              {errors.email && <div className="text-danger">{errors.email}</div>}
             </div>
 
             <div className="form-group">
@@ -204,8 +249,9 @@ function Clients() {
                   setActiveClient({ ...activeClient, phone: e.target.value })
                 }
                 placeholder="Enter phone number"
-                required
+                className={errors.phone ? "form-control is-invalid" : "form-control"}
               />
+              {errors.phone && <div className="text-danger">{errors.phone}</div>}
             </div>
 
             <button type="submit" className="btn btn-primary">

@@ -443,7 +443,7 @@ def get_sales_forecast(request):
     dates = np.array([item[0] for item in sales_data]).reshape(-1, 1)
     sales = np.array([item[1] for item in sales_data]).reshape(-1, 1)
 
-    poly = PolynomialFeatures(degree=4)
+    poly = PolynomialFeatures(degree=2)
     dates_poly = poly.fit_transform(dates)
 
     model = LinearRegression()

@@ -79,7 +79,7 @@ export default function SignUp() {
   return (
     <div className="container mt-5">
       <div className="card">
-        <div className="card-header bg-primary text-white">
+        <div className="card-header text-white" style={{background:"rgb(255, 136, 0)"}}>
           <h5 className="card-title mb-0">User & Company Information</h5>
         </div>
         <div className="card-body">
@@ -118,7 +118,7 @@ export default function SignUp() {
             />
             <div className="row">
               <div className="col-md-12 text-center">
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn text-white" style={{background:"rgb(255, 136, 0)"}}>
                   Save Details
                 </button>
               </div>

@@ -15,7 +15,7 @@ export default function Header() {
               For contractors, freelancers, owner-operators, creatives, and
               other small business owners.
             </div>
-            <Link to='/invoice'>
+            <Link to='/invoice/create-invoice'>
             <div className="invoiceButton ">
               <button className="btn text-center text-white Button">
                 <span className="">Create an invoice now</span>

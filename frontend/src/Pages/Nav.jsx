@@ -52,51 +52,16 @@ export default function Nav() {
                 </Link>
               </li>
               <li className="nav-item">
+                <Link className="nav-link text-center" to="/invoice">
+                  Invoices
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link className="nav-link text-center" to="/stats">
                   Stats
                 </Link>
               </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle text-center"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                >
-                  Our Services
-                </a>
-                <ul className="dropdown-menu">
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Invoice
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Purchases
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Estimates
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Products
-                    </a>
-                  </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Something else here
-                    </a>
-                  </li>
-                </ul>
-              </li>
+
             </ul>
             {username ? (
               <div className="loggedInDetails d-lg-flex">

@@ -3,6 +3,26 @@ import { Navigate, Link } from "react-router-dom";
 import axios from "axios";
 import getCookie from "D:/CODING/ACCOUNTXPERT/frontend/src/getCookies.js";
 import "./Styles/CreateInvoice.css";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object({
+  businessName: Yup.string().required("Business name is required"),
+  businessEmail: Yup.string()
+    .email("Invalid email address")
+    .required("Business email is required"),
+  businessAddress: Yup.string().required("Business address is required"),
+  businessPhone: Yup.string().required("Business phone is required"),
+  businessNumber: Yup.string().required("Business number is required"),
+  clientName: Yup.string().required("Client name is required"),
+  clientEmail: Yup.string()
+    .email("Invalid email address")
+    .required("Client email is required"),
+  clientAddress: Yup.string().required("Client address is required"),
+  clientPhone: Yup.string().required("Client phone is required"),
+  invoiceNumber: Yup.string().required("Invoice number is required"),
+  invoiceDate: Yup.date().required("Invoice date is required"),
+  terms: Yup.string().required("Terms are required"),
+});
 
 function CreateInvoice() {
   const [redirect, setRedirect] = useState(false);
@@ -18,7 +38,7 @@ function CreateInvoice() {
     clientAddress: "",
     clientPhone: "",
     invoiceNumber: "",
-    invoiceDate: new Date().toISOString().split('T')[0],
+    invoiceDate: new Date().toISOString().split("T")[0],
     terms: "On Receipt",
     items: [{ description: "", rate: "", qty: "", amount: "" }],
     total: 0,
@@ -28,6 +48,7 @@ function CreateInvoice() {
   const [clientSuggestions, setClientSuggestions] = useState([]);
   const [itemSuggestions, setItemSuggestions] = useState([]);
   const [activeItemIndex, setActiveItemIndex] = useState(null); // New state to track active item index
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     axios
@@ -62,6 +83,7 @@ function CreateInvoice() {
 
   const handleInputChange = async (e) => {
     const { name, value } = e.target;
+    errors[name] = ""
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -149,14 +171,25 @@ function CreateInvoice() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form data:", formData);
-    const response = await axios.post(
-      "http://127.0.0.1:8000/api/create-invoice/",
-      formData
-    );
-    if (response.status === 201) {
-      setRedirect(true);
+    try {
+      await validationSchema.validate(formData, { abortEarly: false });
+      setErrors({});
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/create-invoice/",
+        formData
+      );
+      if (response.status === 201) {
+        setRedirect(true);
+      }
+    } catch (err) {
+      const newErrors = err.inner.reduce((acc, error) => {
+        acc[error.path] = error.message;
+        return acc;
+      }, {});
+      setErrors(newErrors);
     }
+    console.log(errors);
+    
   };
 
   if (redirect) {
@@ -166,7 +199,7 @@ function CreateInvoice() {
   return (
     <form onSubmit={handleSubmit} method="POST">
       <div className="container my-5">
-      <div className="row">
+        <div className="row">
           <div className="col-12 d-flex justify-content-between align-items-center">
             <h1>Invoice</h1>
           </div>
@@ -185,6 +218,7 @@ function CreateInvoice() {
                 value={formData.businessName}
                 onChange={handleInputChange}
               />
+               {errors.businessName && <div className="text-danger">{errors.businessName}</div>}
             </div>
             <div className="mb-3">
               <label className="form-label">Email</label>
@@ -196,6 +230,7 @@ function CreateInvoice() {
                 value={formData.businessEmail}
                 onChange={handleInputChange}
               />
+               {errors.businessEmail && <div className="text-danger">{errors.businessEmail}</div>}
             </div>
             <div className="mb-3">
               <label className="form-label">Address</label>
@@ -207,6 +242,7 @@ function CreateInvoice() {
                 value={formData.businessAddress}
                 onChange={handleInputChange}
               />
+               {errors.businessAddress && <div className="text-danger">{errors.businessAddress}</div>}
             </div>
             <div className="mb-3">
               <label className="form-label">Phone</label>
@@ -218,6 +254,7 @@ function CreateInvoice() {
                 value={formData.businessPhone}
                 onChange={handleInputChange}
               />
+               {errors.businessPhone && <div className="text-danger">{errors.businessPhone}</div>}
             </div>
             <div className="mb-3">
               <label className="form-label">Business Number</label>
@@ -229,6 +266,7 @@ function CreateInvoice() {
                 value={formData.businessNumber}
                 onChange={handleInputChange}
               />
+               {errors.businessNumber && <div className="text-danger">{errors.businessNumber}</div>}
             </div>
           </div>
 
@@ -245,6 +283,7 @@ function CreateInvoice() {
                 onChange={handleInputChange}
                 autoComplete="off"
               />
+               {errors.clientName && <div className="text-danger">{errors.clientName}</div>}
               {clientSuggestions.length > 0 && (
                 <ul
                   className="list-group-numbered list-group position-absolute w-100 suggestion-dropdown"
@@ -272,6 +311,7 @@ function CreateInvoice() {
                 value={formData.clientEmail}
                 onChange={handleInputChange}
               />
+              {errors.clientEmail && <div className="text-danger">{errors.clientEmail}</div>}
             </div>
             <div className="mb-3">
               <label className="form-label">Address</label>
@@ -283,6 +323,7 @@ function CreateInvoice() {
                 value={formData.clientAddress}
                 onChange={handleInputChange}
               />
+              {errors.clientAddress && <div className="text-danger">{errors.clientAddress}</div>}
             </div>
             <div className="mb-3">
               <label className="form-label">Phone</label>
@@ -294,6 +335,7 @@ function CreateInvoice() {
                 value={formData.clientPhone}
                 onChange={handleInputChange}
               />
+              {errors.clientPhone && <div className="text-danger">{errors.clientPhone}</div>}
             </div>
           </div>
         </div>
@@ -309,6 +351,7 @@ function CreateInvoice() {
               value={formData.invoiceNumber}
               onChange={handleInputChange}
             />
+            {errors.invoiceNumber && <div className="text-danger">{errors.invoiceNumber}</div>}
           </div>
           <div className="col-md-3">
             <label className="form-label">Date</label>
@@ -319,6 +362,7 @@ function CreateInvoice() {
               value={formData.invoiceDate}
               onChange={handleInputChange}
             />
+            {errors.invoiceDate && <div className="text-danger">{errors.invoiceDate}</div>}
           </div>
           <div className="col-md-3">
             <label className="form-label">Terms</label>
@@ -377,7 +421,9 @@ function CreateInvoice() {
                             <li
                               key={i}
                               className="list-group-item list-group-item-primary"
-                              onClick={() => handleItemSelect(index, suggestion)}
+                              onClick={() =>
+                                handleItemSelect(index, suggestion)
+                              }
                             >
                               {suggestion.name} - ₹{suggestion.price}
                             </li>

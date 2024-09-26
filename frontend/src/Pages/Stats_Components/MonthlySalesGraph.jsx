@@ -41,7 +41,10 @@ const MonthlySalesGraph = () => {
         data: labels.map((month) => monthlySales[month]),
         borderColor: 'rgba(75, 192, 192, 1)',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        pointRadius: 6, 
+        pointHoverRadius: 8, 
         fill: true,
+        tension : 0.5,
       },
     ],
   };

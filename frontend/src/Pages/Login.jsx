@@ -22,7 +22,7 @@ function Login() {
     try {
       const response = await axios.post("http://127.0.0.1:8000/api/login/", data);
       if (response.status === 200) {
-        document.cookie = `username = ${response.data.username} ; secure`
+        document.cookie = `username = ${response.data.username}`
         setRedirect(true);
       } else if (response.status === 400) {
         setMessage("Username or Password is incorrect");
@@ -43,7 +43,7 @@ function Login() {
       <div className="row justify-content-center">
         <div className="col-md-4">
           <div className="card">
-            <div className="card-header bg-primary text-white text-center">
+            <div className="card-header text-white text-center" style={{background:"rgb(255, 136, 0)"}}>
               <h5 className="card-title mb-0">Login</h5>
             </div>
             <div className="card-body">
@@ -83,7 +83,7 @@ function Login() {
                   </div>
                 </div>
                 <div className="d-grid">
-                  <button type="submit" className="btn btn-primary">
+                  <button type="submit" className="btn text-white" style={{background:"rgb(255, 136, 0)"}}>
                     Login
                   </button>
                 </div>

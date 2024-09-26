@@ -4,6 +4,7 @@ import { useLocation, Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import Footer from "./Footer";
 import "./Styles/Products.css";
+import * as Yup from "yup";
 
 function Products() {
   const [username, setUsername] = useState(null);
@@ -11,6 +12,22 @@ function Products() {
   const [addbutton, setAddbutton] = useState(true);
   const [products, setProducts] = useState([]);
   const [refreshId, setRefreshId] = useState();
+  const [errors, setErrors] = useState({});
+
+  const productSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, "Product name is too short!")
+      .max(50, "Product name is too long!")
+      .required("Product name is required"),
+    price: Yup.number()
+      .min(0, "Price must be a positive number")
+      .required("Price is required"),
+    description: Yup.string()
+      .min(10, "Description is too short!")
+      .max(200, "Description is too long!")
+      .required("Description is required"),
+  });
+
   const [activeProduct, setActiveProduct] = useState({
     name: "",
     price: "",
@@ -21,7 +38,7 @@ function Products() {
   useEffect(() => {
     const getUsername = async () => {
       try {
-        const user = getCookie(); // Ensure getCookie returns a Promise
+        const user = getCookie();
         console.log("Fetched username from cookie:", user);
         setUsername(user);
       } catch (error) {
@@ -55,7 +72,10 @@ function Products() {
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
+
     try {
+      await productSchema.validate(activeProduct, { abortEarly: false });
+
       const newProduct = { ...activeProduct, username };
       const response = await axios.post(
         "http://localhost:8000/api/add-product/",
@@ -69,13 +89,23 @@ function Products() {
           ...products,
           newProductWithId,
         ].sort((a, b) => a.name.localeCompare(b.name));
-        
+
         setProducts(updatedProducts);
         setRefreshId(null);
         setActiveProduct({ name: "", price: "", description: "", _id: null });
+        setErrors({});
       }
     } catch (error) {
-      console.error("Error adding product:", error);
+      if (error.name === "ValidationError") {
+        console.log(error.inner)
+        const validationErrors = {};
+        error.inner.forEach((err) => {
+          validationErrors[err.path] = err.message;
+        });
+        setErrors(validationErrors);
+      } else {
+        console.error("Error adding product:", error);
+      }
     }
   };
 
@@ -83,6 +113,8 @@ function Products() {
     e.preventDefault();
     if (activeProduct._id) {
       try {
+        await productSchema.validate(activeProduct, { abortEarly: false });
+
         const updatedProduct = { ...activeProduct };
         const response = await axios.put(
           `http://localhost:8000/api/update-product/${activeProduct._id}/`,
@@ -98,9 +130,18 @@ function Products() {
           setProducts(updatedProducts);
           setActiveProduct({ name: "", price: "", description: "", _id: null });
           setAddbutton(true);
+          setErrors({}); 
         }
       } catch (error) {
-        console.error("Error updating product:", error);
+        if (error.name === "ValidationError") {
+          const validationErrors = {};
+          error.inner.forEach((err) => {
+            validationErrors[err.path] = err.message;
+          });
+          setErrors(validationErrors);
+        } else {
+          console.error("Error updating product:", error);
+        }
       }
     }
   };
@@ -140,7 +181,7 @@ function Products() {
     <>
       <div className="products-container d-flex flex-column flex-lg-row">
         <div className="form-container">
-          <h2>{addbutton ? "Current Product" : "Update Product"}</h2>
+          <h2>{addbutton ? "Add Product" : "Update Product"}</h2>
           <form onSubmit={addbutton ? handleAddProduct : handleUpdateProduct}>
             <div className="form-group">
               <label htmlFor="name">Product Name</label>
@@ -152,8 +193,9 @@ function Products() {
                   setActiveProduct({ ...activeProduct, name: e.target.value })
                 }
                 placeholder="Enter product name"
-                required
+                className={errors.name ? "form-control is-invalid" : "form-control"}
               />
+              {errors.name && <div className="text-danger">{errors.name}</div>}
             </div>
 
             <div className="form-group">
@@ -166,8 +208,9 @@ function Products() {
                   setActiveProduct({ ...activeProduct, price: e.target.value })
                 }
                 placeholder="Enter price"
-                required
+                className={errors.price ? "form-control is-invalid" : "form-control"}
               />
+              {errors.price && <div className="text-danger">{errors.price}</div>}
             </div>
 
             <div className="form-group">
@@ -182,8 +225,11 @@ function Products() {
                   })
                 }
                 placeholder="Enter product description"
-                required
+                className={errors.description ? "form-control is-invalid" : "form-control"}
               />
+              {errors.description && (
+                <div className="text-danger">{errors.description}</div>
+              )}
             </div>
 
             <button

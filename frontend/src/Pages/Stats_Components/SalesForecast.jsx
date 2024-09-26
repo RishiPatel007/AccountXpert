@@ -26,6 +26,8 @@ const SalesForecast = () => {
         data: Object.values(forecastedSales),
         borderColor: "rgba(75, 192, 192, 1)",
         fill: false,
+        pointRadius: 6, 
+        pointHoverRadius: 8, 
         tension: 0.6,
       },
     ],
