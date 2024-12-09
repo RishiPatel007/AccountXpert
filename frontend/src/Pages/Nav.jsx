@@ -1,7 +1,7 @@
 import { useState , useEffect } from "react";
 import "./Styles/nav.css";
 import { useLocation, Link } from 'react-router-dom';
-import getCookie from "D:/CODING/ACCOUNTXPERT/frontend/src/getCookies.js";
+import getCookie from "../getCookies.js";
 import logo from "../assets/logo.png";
 export default function Nav() {
   const [username, setUsername] = useState(null);

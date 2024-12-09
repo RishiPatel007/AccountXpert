@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import getCookie from 'D:/CODING/ACCOUNTXPERT/frontend/src/getCookies.js'; 
+import getCookie from "../getCookies.js";
 import axios from 'axios';
 import { useLocation, Link, Navigate } from 'react-router-dom';
 import "./Styles/Invoice.css";

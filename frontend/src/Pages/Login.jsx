@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
-import applyBootstrapValidation from "D:/CODING/ACCOUNTXPERT/frontend/src/bootstrapValidation.js";
+import applyBootstrapValidation from "../bootstrapValidation.js";
 
 function Login() {
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import axios from "axios";
-import getCookie from "D:/CODING/ACCOUNTXPERT/frontend/src/getCookies.js";
+import getCookie from "../../getCookies.js";
 
 const SalesForecast = () => {
   const [forecastedSales, setForecastedSales] = useState({});

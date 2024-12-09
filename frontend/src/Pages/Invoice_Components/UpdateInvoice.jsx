@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Navigate } from "react-router-dom";
 import axios from "axios";
-import getCookie from "D:/CODING/ACCOUNTXPERT/frontend/src/getCookies.js";
+import getCookie from "../../getCookies.js";
 import * as Yup from "yup";
 const validationSchema = Yup.object({
   businessName: Yup.string().required("Business name is required"),

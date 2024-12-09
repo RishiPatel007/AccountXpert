@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, Link } from "react-router-dom";
 import axios from "axios";
-import getCookie from "D:/CODING/ACCOUNTXPERT/frontend/src/getCookies.js";
+import getCookie from "../../getCookies.js";
 import "./Styles/CreateInvoice.css";
 import * as Yup from "yup";
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import getCookie from "D:/CODING/ACCOUNTXPERT/frontend/src/getCookies.js";
+import getCookie from "../../getCookies.js";
 import {
   Chart as ChartJS,
   BarElement,

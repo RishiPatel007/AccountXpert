@@ -4,7 +4,7 @@ import YearlySalesGraph from "./Stats_Components/YearlySalesGraph";
 import SalesForecast from "./Stats_Components/SalesForecast";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
-import getCookie from "../../../../../CODING/ACCOUNTXPERT/frontend/src/getCookies";
+import getCookie from "../getCookies.js";
 export default function Stats() {
   const [username , setUsername] = useState(getCookie())
 
