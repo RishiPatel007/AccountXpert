@@ -324,11 +324,11 @@ def get_personal_data(request):
     username = request.GET.get("username")
     user = users_collection.find_one({"username": username})
     data = {
-        "businessName": user["company_details"]["name"],
-        "businessEmail": user["company_details"]["email"],
-        "businessAddress": user["company_details"]["address"],
-        "businessPhone": user["company_details"]["phone"],
-        "businessNumber": user["company_details"]["phone"],
+        "businessName": user["companyDetails"]["name"],
+        "businessEmail": user["companyDetails"]["email"],
+        "businessAddress": user["companyDetails"]["address"],
+        "businessPhone": user["companyDetails"]["phone"],
+        "businessNumber": user["companyDetails"]["phone"],
     }
     return JsonResponse(data, safe=False)
 
@@ -336,7 +336,15 @@ def get_personal_data(request):
 @require_http_methods(["GET"])
 def search_client(request):
     query = request.GET.get("query", "")
-    clients = clients_collection.find({"name": {"$regex": query, "$options": "i"}}).limit(5)
+    username = request.GET.get("username", "")
+    user_id = users_collection.find_one({"username": username})["_id"]
+    clients = clients_collection.find(
+        {
+            "user_id": user_id,
+            "name": {"$regex": query, "$options": "i"}
+        }
+    ).limit(5)
+    print(clients)
     result = [
         {
             "name": client["name"],
@@ -352,7 +360,14 @@ def search_client(request):
 @require_http_methods(["GET"])
 def search_item(request):
     query = request.GET.get("query", "")
-    products = product_collection.find({"name": {"$regex": query, "$options": "i"}}).limit(5    )
+    username = request.GET.get("username", "")
+    user_id = users_collection.find_one({"username": username})["_id"]
+    products = product_collection.find(
+        {
+            "user_id": user_id,
+            "name": {"$regex": query, "$options": "i"}
+        }
+    ).limit(5)
     result = [
         {"name": product["name"], "price": product["price"]} for product in products
     ]

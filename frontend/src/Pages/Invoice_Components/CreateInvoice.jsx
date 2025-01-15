@@ -92,7 +92,7 @@ function CreateInvoice() {
     if (name === "clientName" && value) {
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/api/search-client/?query=${value}`
+          `http://127.0.0.1:8000/api/search-client/?query=${value}&username=${getCookie()}`
         );
         setClientSuggestions(response.data);
       } catch (error) {
@@ -111,7 +111,7 @@ function CreateInvoice() {
     if (name === "description" && value) {
       try {
         const res = await axios.get(
-          `http://127.0.0.1:8000/api/search-item/?query=${value}`
+          `http://127.0.0.1:8000/api/search-item/?query=${value}&username=${getCookie()}`
         );
         setItemSuggestions(res.data);
       } catch (e) {
